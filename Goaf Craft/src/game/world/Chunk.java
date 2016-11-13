@@ -15,6 +15,7 @@ public class Chunk {
 	
 	//Defining all sizes for terrain components
 	public static final float SIZE = 64;
+	public static final float SIZE2 = SIZE / 2;
 	public static final int VERTEX_COUNT = 16;
 	private static final int VERTEX_COUNT_MINUS_ONE = VERTEX_COUNT - 1;
 	private static final int TEXTURE_SIZE = 64;

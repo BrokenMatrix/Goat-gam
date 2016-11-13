@@ -3,6 +3,7 @@ package game.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.entities.Player;
 import game.tools.MathHelper;
 import game.tools.MidpointDisplacement;
 import game.tools.OpenSimplexNoise;
@@ -11,6 +12,9 @@ public class World {
 	
 	//Defining chunk count
 	public static final int CHUNKS = 16;
+	private static final int VIEW_DISTANCE = 6;
+	private static final int VIEW_DISTANCE2 = VIEW_DISTANCE / 2;
+	private static final int VIEW_DISTANCE21 = VIEW_DISTANCE2 + 1;
 	
 	public static Chunk[][] Chunks;
 	public static List<Chunk> Visible;
@@ -44,11 +48,22 @@ public class World {
 		//Calculating visible chunks
 		//TODO: ACTUALLY F***ING CALCULATE THEM!!!
 		Visible.clear();
-		for(int x = 0; x < CHUNKS; x++){
-			for(int y = 0; y < CHUNKS; y++){
-				Visible.add(Chunks[x][y]);
+		for(int x = -VIEW_DISTANCE2; x < VIEW_DISTANCE21; x++){
+			for(int y = -VIEW_DISTANCE2; y < VIEW_DISTANCE21; y++){
+				int CX = (int) Math.round((Player.Position.x - Chunk.SIZE2 - (x * Chunk.SIZE)) / Chunk.SIZE);
+				int CZ = (int) Math.round((Player.Position.z - Chunk.SIZE2 - (y * Chunk.SIZE)) / Chunk.SIZE);
+				if(!(CX < 0 || CZ < 0 || CX > CHUNKS - 1 || CZ > CHUNKS - 1)){
+					Visible.add(Chunks[CX][CZ]);
+				}
 			}
 		}
+//		int CX = (int) (Player.Position.x / Chunk.SIZE);
+//		int CZ = (int) (Player.Position.z / Chunk.SIZE);
+//		for(int x = 0; x < CHUNKS; x++){
+//			for(int y = 0; y < CHUNKS; y++){
+//				Visible.add(Chunks[x][y]);
+//			}
+//		}
 		
 	}
 	
