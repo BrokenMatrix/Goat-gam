@@ -14,7 +14,6 @@ public class Main {
 		Window.Create(24);
 		//Initializing classes
 		VertexObjectHelper.Create();
-		VertexObjectHelper.Create();
 		Renderer.Create();
 		World.Create();
 		Player.Create();
