@@ -9,10 +9,11 @@ import rendering.Window;
 public class Main {
 	
 	public static void main(String[] args){
-		//WOW
+		
 		//Creating window
 		Window.Create(24);
 		//Initializing classes
+		VertexObjectHelper.Create();
 		VertexObjectHelper.Create();
 		Renderer.Create();
 		World.Create();
