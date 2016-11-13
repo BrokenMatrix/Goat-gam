@@ -10,6 +10,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		
+		//KYS FATTY
 		//Creating window
 		Window.Create(24);
 		//Initializing classes
