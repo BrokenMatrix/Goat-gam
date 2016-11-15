@@ -11,6 +11,8 @@ uniform sampler2D Texture;
 
 void main(void){
 
-	out_Color = mix(sky_color, texture(Texture, pixel_texture_coordinate), visibility);
+	vec4 t = texture(Texture, pixel_texture_coordinate);
+	out_Color = vec4(mix(sky_color, t, visibility).xyz, t.w);
+	//out_Color = vec4(pixel_texture_coordinate.xy, 0, 1);
 
 }

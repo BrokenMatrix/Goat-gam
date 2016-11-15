@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 
 import game.entities.Player;
+import rendering.shader.GenericShader;
 
 public class Renderer {
 	
@@ -13,11 +14,21 @@ public class Renderer {
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = 1000;
 	
+	public static GenericShader shader;
+	
 	public static void Create(){
 		
 		//Creating projection matrix and initializing other renderers
 		Matrix4f projection = CreateProjectionMatrix();
-		TerrainRenderer.Create(projection);
+		shader = new GenericShader();
+		shader.start();
+		shader.loadProjection(projection);
+		shader.stop();
+		//Enabling culling
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glCullFace(GL11.GL_BACK);
 		
 	}
 	
@@ -30,13 +41,14 @@ public class Renderer {
 		
 		//Rendering everything
 		TerrainRenderer.Render(Player.ViewMatrix);
+		EntityRenderer.Render(Player.ViewMatrix);
 		
 	}
 	
 	public static void Destroy(){
 		
-		//Cleaning up renderers
-		TerrainRenderer.Destroy();
+		//Cleaning up renderers and shaders
+		Renderer.shader.cleanUp();
 		
 	}
 	

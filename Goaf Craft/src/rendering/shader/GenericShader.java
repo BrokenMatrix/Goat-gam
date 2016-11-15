@@ -2,7 +2,7 @@ package rendering.shader;
 
 import org.lwjgl.util.vector.Matrix4f;
 
-public class TerrainShader extends Shader {
+public class GenericShader extends Shader {
 	
 	//JUST A STANDARD SHADER CLASS
 	
@@ -10,9 +10,9 @@ public class TerrainShader extends Shader {
 	private int location_projection;
 	private int location_view;
 	
-	public TerrainShader(){
+	public GenericShader(){
 		
-		super("terrain", true);
+		super("generic", true);
 		
 	}
 	

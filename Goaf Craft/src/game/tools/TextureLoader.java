@@ -1,15 +1,21 @@
 package game.tools;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
 public class TextureLoader {
 	
+	//Defining resource folder location
+	private static final String RESOURCE_LOCATION = "res/";
 	//Defining bytes per pixel as 4 because we are using RGBA format
 	private static final int BYTES_PER_PIXEL = 4;
 	
@@ -19,6 +25,18 @@ public class TextureLoader {
 		
 		//Initializing textures array
 		textures = new ArrayList<Integer>();
+		
+	}
+	
+	//Loads a file image into and OpenGL sampler
+	public static int LoadImage(String location){
+		
+		try {
+			return LoadImage(ImageIO.read(new File(RESOURCE_LOCATION + location + ".png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return -1337;
 		
 	}
 	

@@ -16,7 +16,7 @@ public class Player {
 	private static final float SPEED = 2.5f;
 	private static final float RUNNING_SPEED = 12.4f / SPEED;
 	private static final float GRAVITY = -9.8f;
-	private static final float JUMP_FORCE = 10f;
+	private static final float JUMP_FORCE = 6f;
 	
 	public static Matrix4f ViewMatrix;
 	public static Vector3f Position;
@@ -31,7 +31,7 @@ public class Player {
 		
 		//Initializing view matrix, position, negative position, and velocity variables
 		ViewMatrix = new Matrix4f();
-		Position = new Vector3f(512 / 2, 1000, 1024 / 2);
+		Position = new Vector3f(512 / 2, 40, 1024 / 2);
 		NegativePosition = new Vector3f();
 		Velocity = new Vector3f();
 		
@@ -81,6 +81,13 @@ public class Player {
 		float height = World.Chunks[CX][CZ].getHeightOfTerrain(Position.x, Position.z) + 1.175f;
 		//Applying gravity
 		Velocity.y += GRAVITY * Window.GetDelta();
+		//Checking input for pausing velocity for debugging
+		if(!Keyboard.isKeyDown(Keyboard.KEY_1)){
+			//Applying velocity
+			Position.x += Velocity.x * Window.GetDelta();
+			Position.y += Velocity.y * Window.GetDelta();
+			Position.z += Velocity.z * Window.GetDelta();
+		}
 		//Checking for terrain collision
 		if(Position.y < height){
 			Position.y = height;
@@ -98,13 +105,6 @@ public class Player {
 			Mouse.setGrabbed(true);
 		}
 		
-		//Checking input for pausing velocity for debugging
-		if(!Keyboard.isKeyDown(Keyboard.KEY_1)){
-			//Applying velocity
-			Position.x += Velocity.x * Window.GetDelta();
-			Position.y += Velocity.y * Window.GetDelta();
-			Position.z += Velocity.z * Window.GetDelta();
-		}
 		//Calculating view matrix
 		ViewMatrix.setIdentity();
 		NegativePosition.x = -Position.x;

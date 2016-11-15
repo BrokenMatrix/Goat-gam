@@ -12,7 +12,7 @@ public class World {
 	
 	//Defining chunk count
 	public static final int CHUNKS = 16;
-	private static final int VIEW_DISTANCE = 6;
+	private static final int VIEW_DISTANCE = 8;
 	private static final int VIEW_DISTANCE2 = VIEW_DISTANCE / 2;
 	private static final int VIEW_DISTANCE21 = VIEW_DISTANCE2 + 1;
 	
@@ -24,7 +24,7 @@ public class World {
 		//Generating island height map
 		float[][] map = MidpointDisplacement.GetMap(Chunk.VERTEX_COUNT * CHUNKS, 1.1f, MathHelper.RANDOM);
 		//Smoothing island height map
-		map = MathHelper.SmoothGrid(map, 1);
+//		map = MathHelper.SmoothGrid(map, 1);
 		map = MathHelper.SmoothGrid(map, 2);
 		map = MathHelper.SmoothGrid(map, 4);
 		//Generating 2 simplex noise maps
@@ -46,7 +46,6 @@ public class World {
 	public static void Update(){
 		
 		//Calculating visible chunks
-		//TODO: ACTUALLY F***ING CALCULATE THEM!!!
 		Visible.clear();
 		for(int x = -VIEW_DISTANCE2; x < VIEW_DISTANCE21; x++){
 			for(int y = -VIEW_DISTANCE2; y < VIEW_DISTANCE21; y++){

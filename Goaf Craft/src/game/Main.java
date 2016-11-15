@@ -1,5 +1,6 @@
 package game;
 
+import game.entities.Entities;
 import game.entities.Player;
 import game.tools.VertexObjectHelper;
 import game.world.World;
@@ -15,6 +16,7 @@ public class Main {
 		//Initializing classes
 		VertexObjectHelper.Create();
 		Renderer.Create();
+		Entities.Create();
 		World.Create();
 		Player.Create();
 		

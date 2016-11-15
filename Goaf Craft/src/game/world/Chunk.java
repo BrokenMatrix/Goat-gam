@@ -2,11 +2,17 @@ package game.world;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
+import game.entities.Entities;
+import game.entities.Entity;
+import game.entities.EntityInstance;
 import game.tools.MathHelper;
 import game.tools.TextureLoader;
 import game.tools.VertexObjectHelper;
@@ -39,6 +45,8 @@ public class Chunk {
 	public int vertex_count;
 	public int texture;
 	public Matrix4f transformation;
+	public HashMap<Entity, List<EntityInstance>> entities;
+	
 	private float[][] heights;
 	private float x,z;
 	
@@ -56,6 +64,26 @@ public class Chunk {
 		//Initializing terrain location
 		x = X * SIZE;
 		z = Z * SIZE;
+		//Initializing entity map
+		entities = new HashMap<Entity, List<EntityInstance>>();
+		GenerateEntities(X, Z);
+		
+	}
+	
+	private void GenerateEntities(int X, int Z){
+		
+		entities.put(Entities.bisp_star, new ArrayList<EntityInstance>());
+		entities.put(Entities.effle_stalk, new ArrayList<EntityInstance>());
+		Entity[] objects = new Entity[]{Entities.bisp_star, Entities.effle_stalk};
+		for(int i = 0; i < MathHelper.RANDOM.nextInt(10*objects.length); i++){
+			float x = X * SIZE + MathHelper.nextFloat(SIZE, MathHelper.RANDOM);
+			float z = Z * SIZE + MathHelper.nextFloat(SIZE, MathHelper.RANDOM);
+			float y = getHeightOfTerrain(x, z);
+			if(y > 2){
+				Entity entity = objects[MathHelper.RANDOM.nextInt(objects.length)];
+				entities.get(entity).add(new EntityInstance(entity, new Vector3f(x, y, z)));
+			}
+		}
 		
 	}
 	
